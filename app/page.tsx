@@ -297,7 +297,7 @@ export default function Home() {
         <a
           className="brand"
           href="#top"
-          data-umami-event="Clicked brand navigation"
+          data-umami-event="Nav: Brand"
           data-umami-event-target="top"
         >
           <span>YL</span> Platform Lab
@@ -307,8 +307,8 @@ export default function Home() {
             <a
               key={href}
               href={href}
-              data-umami-event="Clicked main navigation"
-              data-umami-event-section={label}
+              data-umami-event="Nav: Main"
+              data-umami-event-target={label}
             >
               {label}
             </a>
@@ -328,7 +328,7 @@ export default function Home() {
             <div className="actions">
               <a
                 href="https://github.com/yesid-lopez/homepage-landing"
-                data-umami-event="Clicked hero repository CTA"
+                data-umami-event="CTA: Repository"
                 data-umami-event-location="hero"
               >
                 Explore repository
@@ -336,7 +336,7 @@ export default function Home() {
               <a
                 href="#architecture"
                 className="secondary"
-                data-umami-event="Clicked hero architecture CTA"
+                data-umami-event="CTA: Architecture"
                 data-umami-event-location="hero"
               >
                 View architecture
@@ -358,8 +358,6 @@ export default function Home() {
       <section
         className="section introBand reveal"
         aria-label="Platform positioning"
-        data-umami-view="Viewed platform positioning band"
-        data-umami-view-component="platform-positioning"
       >
         {platformStats.map(([title, description]) => (
           <article key={title}>
@@ -382,8 +380,6 @@ export default function Home() {
             <article
               className="card featureCard"
               key={item.name}
-              data-umami-view="Viewed architecture feature card"
-              data-umami-view-card={item.name}
             >
               <div className="cardIcon">{item.icon}</div>
               <p className="tag">{item.role}</p>
@@ -399,8 +395,6 @@ export default function Home() {
           {gitopsFlow.map(([step, title, description]) => (
             <article
               key={step}
-              data-umami-view="Viewed GitOps pipeline step"
-              data-umami-view-step={title}
             >
               <span>{step}</span>
               <h3>{title}</h3>
@@ -420,8 +414,6 @@ export default function Home() {
             <article
               className="card compact capabilityCard"
               key={name}
-              data-umami-view="Viewed platform capability card"
-              data-umami-view-capability={name}
             >
               <span />
               <h3>{name}</h3>
@@ -450,8 +442,6 @@ export default function Home() {
             <article
               className="appCard"
               key={app.name}
-              data-umami-view="Viewed workload card"
-              data-umami-view-workload={app.name}
             >
               <div>
                 <p className="tag">Workload class</p>
@@ -468,8 +458,6 @@ export default function Home() {
         <div className="dashboardGrid">
           <article
             className="signalPanel large"
-            data-umami-view="Viewed telemetry signal panel"
-            data-umami-view-panel="health-signals"
           >
             <span>Telemetry</span>
             <h3>Health signals and feedback loops</h3>
@@ -477,8 +465,6 @@ export default function Home() {
           </article>
           <article
             className="signalPanel"
-            data-umami-view="Viewed observability signal panel"
-            data-umami-view-panel="feedback-loop"
           >
             <span>Feedback loop</span>
             <h3>Detect issues quickly</h3>
@@ -486,8 +472,6 @@ export default function Home() {
           </article>
           <article
             className="signalPanel"
-            data-umami-view="Viewed observability signal panel"
-            data-umami-view-panel="operations"
           >
             <span>Operations</span>
             <h3>Traceable changes</h3>
@@ -506,8 +490,6 @@ export default function Home() {
             <article
               className="securityCard"
               key={item}
-              data-umami-view="Viewed security practice card"
-              data-umami-view-practice={item}
             >
               <span>✓</span>
               <h3>{item}</h3>
@@ -529,7 +511,7 @@ export default function Home() {
         <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
         <a
           href="https://github.com/yesid-lopez/homepage-landing"
-          data-umami-event="Clicked footer repository link"
+          data-umami-event="Outbound: GitHub"
           data-umami-event-location="footer"
         >
           github.com/yesid-lopez/homepage-landing
