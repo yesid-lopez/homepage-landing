@@ -1,16 +1,16 @@
-# Homepage Landing — Kubernetes Homelab
+# Homepage Landing — Kubernetes Platform Lab
 
-A public, security-conscious landing page for Yesid Lopez's Kubernetes homelab.
+A public, security-conscious landing page for Yesid Lopez's Kubernetes platform lab.
 
-The site presents the platform architecture, GitOps workflow, workload categories, observability practices, and security posture of a private homelab without exposing sensitive operational details such as IP addresses, hostnames, credentials, internal paths, or exact hardware topology.
+The site presents the platform architecture, GitOps workflow, workload categories, observability practices, and security posture of a private platform lab without exposing sensitive operational details such as IP addresses, hostnames, credentials, internal paths, or exact hardware topology.
 
 ## What this project showcases
 
-- **Kubernetes platform engineering** — a compact self-hosted runtime for applications, experiments, and automation.
+- **Kubernetes platform engineering** — a compact private runtime for applications, workflows, and experimentation.
 - **GitOps delivery** — infrastructure and workloads modeled as code and reconciled from Git.
-- **Secure operations** — encrypted secrets, reviewed configuration changes, controlled ingress, and TLS automation.
+- **Secure operations** — encrypted secrets, reviewed configuration changes, controlled access patterns and sanitized public details.
 - **Observability** — metrics, logs, dashboards, and alerts for operational feedback.
-- **AI/ML-ready lab environment** — a private platform for testing services, automation, and model-adjacent tooling.
+- **Experimentation environment** — a private platform for testing services, automation, and technical ideas.
 - **Sanitized public documentation** — enough architectural context to communicate the design without leaking private infrastructure details.
 
 ## Tech stack
@@ -80,11 +80,11 @@ This repository is intentionally public-safe. The landing page avoids publishing
 - private network topology
 - sensitive image tags, manifests, or runtime configuration
 
-The goal is to communicate the platform design and engineering practices while keeping the actual homelab implementation private and secure.
+The goal is to communicate the platform design and engineering practices while keeping the actual implementation private and secure.
 
 ## Suggested repository topics
 
-`nextjs`, `react`, `typescript`, `homelab`, `kubernetes`, `gitops`, `platform-engineering`, `observability`, `self-hosted`
+`nextjs`, `react`, `typescript`, `portfolio`, `landing-page`, `kubernetes`, `gitops`, `platform-engineering`
 
 ## Author
 

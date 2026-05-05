@@ -2,13 +2,13 @@ const highlights = [
   { label: "Platform", value: "Kubernetes" },
   { label: "Delivery", value: "GitOps" },
   { label: "Security", value: "Encrypted secrets" },
-  { label: "Signals", value: "Metrics + logs" },
+  { label: "Signals", value: "Operational feedback" },
 ];
 
 const platformStats = [
-  ["AI-ready", "Self-hosted runtime for experiments, services, and automation."],
+  ["Platform lab", "Private runtime for applications, workflows, and experimentation."],
   ["Declarative", "Infrastructure and workloads are managed as reviewed code."],
-  ["Observable", "Metrics, logs, dashboards, and alerts support operations."],
+  ["Observable", "Operational signals support maintenance and reliability."],
 ];
 
 const architectureCards = [
@@ -25,10 +25,10 @@ const architectureCards = [
   {
     icon: "⌁",
     name: "Secure edge",
-    role: "Ingress + TLS",
+    role: "Controlled access layer",
     details: [
-      "Selected services are routed through a controlled ingress layer.",
-      "TLS lifecycle is automated for published applications.",
+      "Services that require external access pass through a controlled access layer.",
+      "External-access details are intentionally kept abstract.",
       "Public hostnames and DNS details are not listed here.",
     ],
   },
@@ -47,18 +47,18 @@ const architectureCards = [
 const controllers = [
   ["GitOps controller", "Reconciles desired state from the repository."],
   ["Secret encryption", "Keeps sensitive values encrypted before commit."],
-  ["Certificate automation", "Automates TLS certificate lifecycle."],
-  ["Ingress controller", "Routes selected web traffic to services."],
+  ["Access automation", "Supports secure external-access workflows."],
+  ["Traffic management", "Controls how approved services are reached."],
   ["Storage controller", "Provides persistent volumes for stateful workloads."],
   ["Database operator", "Manages application databases declaratively."],
-  ["Monitoring stack", "Collects metrics, logs, dashboards, and alerts."],
+  ["Operational telemetry", "Collects health and reliability signals."],
   ["Upgrade automation", "Helps keep platform components maintained."],
 ];
 
 const apps = [
   {
-    name: "AI/ML experiments",
-    purpose: "A private runtime for model-adjacent tools, automation, and technical experiments.",
+    name: "Experimentation workloads",
+    purpose: "A private runtime for testing services, workflows, and technical ideas.",
     details: [
       "Designed like a compact platform engineering lab.",
       "Useful for testing deployment, monitoring, and reliability patterns.",
@@ -66,7 +66,7 @@ const apps = [
     ],
   },
   {
-    name: "Product applications",
+    name: "Application workloads",
     purpose: "Custom applications deployed through the same GitOps platform.",
     details: [
       "Built and released through a private delivery workflow.",
@@ -75,17 +75,17 @@ const apps = [
     ],
   },
   {
-    name: "Analytics and telemetry",
-    purpose: "Self-hosted insight layer for owned projects and operations.",
+    name: "Telemetry workflows",
+    purpose: "Private insight workflows for owned projects and operations.",
     details: [
-      "Combines application signals with platform-level observability.",
+      "Combines application signals with platform-level operational feedback.",
       "Supports reporting, debugging, and operational awareness.",
       "Dashboard URLs and service endpoints are not published.",
     ],
   },
   {
-    name: "Internal automation",
-    purpose: "Private services for operations, delivery, and maintenance workflows.",
+    name: "Automation services",
+    purpose: "Private services for delivery, maintenance, and support workflows.",
     details: [
       "Includes supporting APIs and utility services.",
       "Access is limited to the required network paths.",
@@ -106,7 +106,7 @@ const securityPractices = [
   "No internal hostnames or IP addresses published",
   "Selected services exposed through a controlled edge",
   "Configuration changes reviewed before deployment",
-  "Monitoring and alerts for operational visibility",
+  "Operational signals for reliability awareness",
   "Sensitive implementation details intentionally redacted",
 ];
 
@@ -131,7 +131,7 @@ function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string
 
 function NeuralArchitecture() {
   return (
-    <div className="neuralVisual" aria-label="Animated AI homelab architecture overview">
+    <div className="neuralVisual" aria-label="Animated private platform architecture overview">
       <div className="meshLine meshLineA" />
       <div className="meshLine meshLineB" />
       <div className="meshLine meshLineC" />
@@ -145,7 +145,7 @@ function NeuralArchitecture() {
       <div className="signal s3" />
 
       <div className="visualTopbar">
-        <span>AI platform view</span>
+        <span>Platform lab view</span>
         <div><i /><i /><i /></div>
       </div>
 
@@ -153,14 +153,14 @@ function NeuralArchitecture() {
         <span className="brainRing ringOne" />
         <span className="brainRing ringTwo" />
         <div className="brainChip">
-          <small>Homelab</small>
+          <small>Platform Lab</small>
           <strong>K8s</strong>
         </div>
       </div>
 
       <div className="orbitCard orbitCardOne">
         <span>Edge</span>
-        <strong>Ingress + TLS</strong>
+        <strong>Controlled access layer</strong>
       </div>
       <div className="orbitCard orbitCardTwo">
         <span>Delivery</span>
@@ -188,11 +188,11 @@ function NeuralArchitecture() {
 }
 
 function ArchitectureSystemMap() {
-  const workloads = ["AI tools", "Apps", "Analytics", "Automation"];
-  const platform = ["GitOps", "Secrets", "TLS", "Storage", "Metrics", "DB operator"];
+  const workloads = ["Experiments", "Apps", "Telemetry", "Automation"];
+  const platform = ["GitOps", "Secrets", "Access", "Storage", "Signals", "Data ops"];
 
   return (
-    <div className="systemMap" aria-label="Visual architecture map of the sanitized homelab platform">
+    <div className="systemMap" aria-label="Visual architecture map of the sanitized private platform">
       <div className="mapGlow mapGlowOne" />
       <div className="mapGlow mapGlowTwo" />
       <div className="mapSignal mapSignalOne" />
@@ -229,8 +229,8 @@ function ArchitectureSystemMap() {
               <span>Ingress</span>
               <strong>Controlled routing</strong>
             </div>
-            <div className="miniPill">TLS automation</div>
-            <div className="miniPill">DNS abstraction</div>
+            <div className="miniPill">Access controls</div>
+            <div className="miniPill">Public details redacted</div>
           </div>
         </div>
 
@@ -241,7 +241,7 @@ function ArchitectureSystemMap() {
           <div className="clusterShell">
             <div className="controlRing">
               <div className="controlCore">
-                <span>K3s</span>
+                <span>K8s</span>
                 <strong>Control plane</strong>
               </div>
             </div>
@@ -273,7 +273,7 @@ function ArchitectureSystemMap() {
           </div>
           <div className="mapNode observeNode">
             <span>Observability</span>
-            <strong>Metrics + logs</strong>
+            <strong>Operational feedback</strong>
           </div>
         </div>
       </div>
@@ -281,7 +281,7 @@ function ArchitectureSystemMap() {
       <div className="mapLegend">
         <span><i className="legendPublic" /> Public entry</span>
         <span><i className="legendPrivate" /> Private platform</span>
-        <span><i className="legendData" /> State and telemetry</span>
+        <span><i className="legendData" /> State and signals</span>
       </div>
     </div>
   );
@@ -291,7 +291,7 @@ export default function Home() {
   return (
     <main>
       <nav className="topNav" aria-label="Page navigation">
-        <a className="brand" href="#top"><span>YL</span> Homelab</a>
+        <a className="brand" href="#top"><span>YL</span> Platform Lab</a>
         <div>
           {navItems.map(([label, href]) => (
             <a key={href} href={href}>{label}</a>
@@ -303,13 +303,13 @@ export default function Home() {
         <div className="heroGrid">
           <div className="heroCopy reveal">
             <p className="eyebrow">AI engineering · Kubernetes · GitOps</p>
-            <h1><span>AI-ready</span> homelab platform</h1>
+            <h1><span>Private</span> platform lab</h1>
             <p className="lead">
-              A polished, security-conscious view of my self-hosted Kubernetes lab — built like a compact platform for
-              AI/ML experimentation, product workloads, automation, observability, and production-style GitOps delivery.
+              A polished, security-conscious view of my private Kubernetes platform lab — built like a compact platform for
+              application workloads, experimentation, automation, operational feedback, and production-style GitOps delivery.
             </p>
             <div className="actions">
-              <a href="https://github.com/yesid-lopez/homelab">Explore repository</a>
+              <a href="https://github.com/yesid-lopez/homepage-landing">Explore repository</a>
               <a href="#architecture" className="secondary">View architecture</a>
             </div>
             <div className="heroStats" aria-label="Platform highlights">
@@ -335,9 +335,9 @@ export default function Home() {
         ))}
       </section>
 
-      <Section id="architecture" eyebrow="Architecture" title="A private cloud lab with an AI-engineering aesthetic">
+      <Section id="architecture" eyebrow="Architecture" title="A private platform lab with an engineering aesthetic">
         <p>
-          The homelab is a small Kubernetes platform for learning, operating, and deploying real services. It keeps the
+          This private lab is a small Kubernetes platform for learning, operating, and deploying real services. It keeps the
           design visible while omitting sensitive hostnames, network addresses, hardware identifiers, credentials, and
           exact implementation details.
         </p>
@@ -354,7 +354,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="gitops" eyebrow="GitOps / MLOps mindset" title="The operating model looks like a production delivery loop">
+      <Section id="gitops" eyebrow="GitOps mindset" title="The operating model looks like a production delivery loop">
         <div className="pipeline">
           {gitopsFlow.map(([step, title, description]) => (
             <article key={step}>
@@ -382,20 +382,20 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="networking" eyebrow="Networking, DNS, TLS" title="A controlled edge without exposing reconnaissance details">
+      <Section id="networking" eyebrow="External access" title="Controlled external access without exposing reconnaissance details">
         <p>
-          Web traffic is routed through a dedicated ingress setup with automated TLS. The public overview avoids listing
-          hostnames, IP ranges, DNS provider configuration, and other details that could make enumeration easier.
+          The platform is designed with a controlled access layer for services that require external reachability. The public overview avoids listing
+          hostnames, IP ranges, provider configuration, and other details that could make enumeration easier.
         </p>
         <div className="chips fancyChips">
-          <span>Ingress routing</span>
-          <span>Automated TLS</span>
-          <span>DNS automation</span>
+          <span>Controlled routing</span>
+          <span>Secure access patterns</span>
+          <span>Provider details redacted</span>
           <span>Sanitized public details</span>
         </div>
       </Section>
 
-      <Section id="apps" eyebrow="Workloads" title="A self-hosted runtime for products, analytics, automation, and AI-adjacent experiments">
+      <Section id="apps" eyebrow="Workloads" title="A private runtime for applications, telemetry workflows, automation, and experimentation">
         <div className="appList">
           {apps.map((app) => (
             <article className="appCard" key={app.name}>
@@ -410,11 +410,11 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="observability" eyebrow="Observability" title="Operational signals make the lab feel like a real platform">
+      <Section id="observability" eyebrow="Observability" title="Operational signals support a platform-style workflow">
         <div className="dashboardGrid">
           <article className="signalPanel large">
             <span>Telemetry</span>
-            <h3>Metrics, logs, dashboards, alerts</h3>
+            <h3>Health signals and feedback loops</h3>
             <div className="bars"><i /><i /><i /><i /><i /></div>
           </article>
           <article className="signalPanel">
@@ -455,8 +455,8 @@ export default function Home() {
       </Section>
 
       <footer>
-        <p>Built with Next.js from a sanitized GitOps homelab repository.</p>
-        <a href="https://github.com/yesid-lopez/homelab">github.com/yesid-lopez/homelab</a>
+        <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
+        <a href="https://github.com/yesid-lopez/homepage-landing">github.com/yesid-lopez/homepage-landing</a>
       </footer>
     </main>
   );

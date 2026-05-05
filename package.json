@@ -1,7 +1,7 @@
 {
   "name": "homepage-landing",
   "version": "1.0.0",
-  "description": "Security-conscious public landing page for a Kubernetes GitOps homelab.",
+  "description": "Security-conscious public landing page for a private Kubernetes platform lab.",
   "private": false,
   "scripts": {
     "dev": "next dev",
@@ -13,12 +13,12 @@
     "nextjs",
     "react",
     "typescript",
-    "homelab",
+    "portfolio",
     "kubernetes",
     "gitops",
     "platform-engineering",
     "observability",
-    "self-hosted"
+    "landing-page"
   ],
   "author": "Yesid Lopez",
   "license": "UNLICENSED",
