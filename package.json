@@ -1,0 +1,44 @@
+{
+  "name": "homepage-landing",
+  "version": "1.0.0",
+  "description": "Security-conscious public landing page for a Kubernetes GitOps homelab.",
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "typescript",
+    "homelab",
+    "kubernetes",
+    "gitops",
+    "platform-engineering",
+    "observability",
+    "self-hosted"
+  ],
+  "author": "Yesid Lopez",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yesid-lopez/homepage-landing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yesid-lopez/homepage-landing/issues"
+  },
+  "homepage": "https://github.com/yesid-lopez/homepage-landing#readme",
+  "dependencies": {
+    "next": "16.2.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.9.1",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}
