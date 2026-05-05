@@ -1456,29 +1456,28 @@ footer a {
   height: 100%;
   min-height: 410px;
   display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 18px;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
   padding-top: 42px;
 }
 
 .controlRing {
-  position: absolute;
-  left: 50%;
-  top: 42%;
+  position: relative;
+  z-index: 2;
   display: grid;
-  width: 170px;
-  height: 170px;
+  width: clamp(132px, 12vw, 158px);
+  height: clamp(132px, 12vw, 158px);
+  place-self: center;
   place-items: center;
   border: 1px dashed rgba(125, 211, 252, 0.35);
   border-radius: 48% 52% 44% 56%;
-  transform: translate(-50%, -50%);
   animation: morphRing 8s ease-in-out infinite;
 }
 
 .controlCore {
   display: grid;
-  width: 104px;
-  height: 104px;
+  width: clamp(88px, 8vw, 100px);
+  height: clamp(88px, 8vw, 100px);
   place-items: center;
   padding: 12px;
   border: 1px solid rgba(125, 211, 252, 0.4);
@@ -1490,7 +1489,7 @@ footer a {
 
 .controlCore span {
   color: var(--accent);
-  font-size: 1.65rem;
+  font-size: clamp(1.35rem, 2vw, 1.58rem);
   font-weight: 950;
   letter-spacing: -0.08em;
 }
@@ -1505,13 +1504,13 @@ footer a {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  align-self: end;
+  align-self: start;
 }
 
 .platformTile {
   position: relative;
   overflow: hidden;
-  min-height: 62px;
+  min-height: 54px;
   display: grid;
   place-items: center;
   padding: 10px;
@@ -1528,6 +1527,7 @@ footer a {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
+  align-self: end;
 }
 
 .workloadPod {
@@ -1536,7 +1536,7 @@ footer a {
   display: grid;
   gap: 8px;
   justify-items: center;
-  padding: 12px 8px;
+  padding: 10px 8px;
   border: 1px solid rgba(125, 211, 252, 0.18);
   border-radius: 18px;
   background: rgba(125, 211, 252, 0.055);
@@ -1741,13 +1741,9 @@ footer a {
   }
 
   .controlRing {
-    position: relative;
-    left: auto;
-    top: auto;
     width: 150px;
     height: 150px;
-    margin: 0 auto 18px;
-    transform: none;
+    margin: 0 auto;
   }
 
   .platformGrid,
