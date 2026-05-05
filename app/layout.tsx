@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "A security-conscious overview of Yesid Lopez's private Kubernetes platform lab, covering GitOps, applications, storage, observability, and platform practices without exposing sensitive operational details.",
 };
 
-const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL;
+const umamiScriptUrl = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL ?? "https://umami.yesidlopez.de/script.js";
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? "6d354ddf-de7c-40a2-87ed-d426fd5d9143";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
