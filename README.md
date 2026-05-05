@@ -69,6 +69,17 @@ npm run start  # Start the production server after building
 npm run lint   # Run linting, when supported by the installed Next.js version
 ```
 
+## Analytics
+
+The landing page supports Umami analytics through public build-time environment variables:
+
+```bash
+NEXT_PUBLIC_UMAMI_SCRIPT_URL=https://your-umami-instance.example.com/script.js
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=6d354ddf-de7c-40a2-87ed-d426fd5d9143
+```
+
+`NEXT_PUBLIC_UMAMI_SCRIPT_URL` is intentionally not hardcoded so the public repository does not reveal the analytics endpoint. If it is not configured, the Umami script is not loaded.
+
 ## Security and privacy notes
 
 This repository is intentionally public-safe. The landing page avoids publishing:
