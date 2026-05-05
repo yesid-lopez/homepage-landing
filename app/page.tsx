@@ -1,3 +1,5 @@
+import { UmamiSectionTracker } from "./umami-section-tracker";
+
 const highlights = [
   { label: "Platform", value: "Kubernetes" },
   { label: "Delivery", value: "GitOps" },
@@ -290,11 +292,26 @@ function ArchitectureSystemMap() {
 export default function Home() {
   return (
     <main>
+      <UmamiSectionTracker />
       <nav className="topNav" aria-label="Page navigation">
-        <a className="brand" href="#top"><span>YL</span> Platform Lab</a>
+        <a
+          className="brand"
+          href="#top"
+          data-umami-event="Clicked brand navigation"
+          data-umami-event-target="top"
+        >
+          <span>YL</span> Platform Lab
+        </a>
         <div>
           {navItems.map(([label, href]) => (
-            <a key={href} href={href}>{label}</a>
+            <a
+              key={href}
+              href={href}
+              data-umami-event="Clicked main navigation"
+              data-umami-event-section={label}
+            >
+              {label}
+            </a>
           ))}
         </div>
       </nav>
@@ -309,8 +326,21 @@ export default function Home() {
               application workloads, experimentation, automation, operational feedback, and production-style GitOps delivery.
             </p>
             <div className="actions">
-              <a href="https://github.com/yesid-lopez/homepage-landing">Explore repository</a>
-              <a href="#architecture" className="secondary">View architecture</a>
+              <a
+                href="https://github.com/yesid-lopez/homepage-landing"
+                data-umami-event="Clicked hero repository CTA"
+                data-umami-event-location="hero"
+              >
+                Explore repository
+              </a>
+              <a
+                href="#architecture"
+                className="secondary"
+                data-umami-event="Clicked hero architecture CTA"
+                data-umami-event-location="hero"
+              >
+                View architecture
+              </a>
             </div>
             <div className="heroStats" aria-label="Platform highlights">
               {highlights.map((item) => (
@@ -325,7 +355,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section introBand reveal" aria-label="Platform positioning">
+      <section
+        className="section introBand reveal"
+        aria-label="Platform positioning"
+        data-umami-view="Viewed platform positioning band"
+        data-umami-view-component="platform-positioning"
+      >
         {platformStats.map(([title, description]) => (
           <article key={title}>
             <span />
@@ -344,7 +379,12 @@ export default function Home() {
         <ArchitectureSystemMap />
         <div className="grid three">
           {architectureCards.map((item) => (
-            <article className="card featureCard" key={item.name}>
+            <article
+              className="card featureCard"
+              key={item.name}
+              data-umami-view="Viewed architecture feature card"
+              data-umami-view-card={item.name}
+            >
               <div className="cardIcon">{item.icon}</div>
               <p className="tag">{item.role}</p>
               <h3>{item.name}</h3>
@@ -357,7 +397,11 @@ export default function Home() {
       <Section id="gitops" eyebrow="GitOps mindset" title="The operating model looks like a production delivery loop">
         <div className="pipeline">
           {gitopsFlow.map(([step, title, description]) => (
-            <article key={step}>
+            <article
+              key={step}
+              data-umami-view="Viewed GitOps pipeline step"
+              data-umami-view-step={title}
+            >
               <span>{step}</span>
               <h3>{title}</h3>
               <p>{description}</p>
@@ -373,7 +417,12 @@ export default function Home() {
       <Section id="controllers" eyebrow="Platform capabilities" title="Core services presented as clean building blocks">
         <div className="grid two capabilityGrid">
           {controllers.map(([name, description]) => (
-            <article className="card compact capabilityCard" key={name}>
+            <article
+              className="card compact capabilityCard"
+              key={name}
+              data-umami-view="Viewed platform capability card"
+              data-umami-view-capability={name}
+            >
               <span />
               <h3>{name}</h3>
               <p>{description}</p>
@@ -398,7 +447,12 @@ export default function Home() {
       <Section id="apps" eyebrow="Workloads" title="A private runtime for applications, telemetry workflows, automation, and experimentation">
         <div className="appList">
           {apps.map((app) => (
-            <article className="appCard" key={app.name}>
+            <article
+              className="appCard"
+              key={app.name}
+              data-umami-view="Viewed workload card"
+              data-umami-view-workload={app.name}
+            >
               <div>
                 <p className="tag">Workload class</p>
                 <h3>{app.name}</h3>
@@ -412,17 +466,29 @@ export default function Home() {
 
       <Section id="observability" eyebrow="Observability" title="Operational signals support a platform-style workflow">
         <div className="dashboardGrid">
-          <article className="signalPanel large">
+          <article
+            className="signalPanel large"
+            data-umami-view="Viewed telemetry signal panel"
+            data-umami-view-panel="health-signals"
+          >
             <span>Telemetry</span>
             <h3>Health signals and feedback loops</h3>
             <div className="bars"><i /><i /><i /><i /><i /></div>
           </article>
-          <article className="signalPanel">
+          <article
+            className="signalPanel"
+            data-umami-view="Viewed observability signal panel"
+            data-umami-view-panel="feedback-loop"
+          >
             <span>Feedback loop</span>
             <h3>Detect issues quickly</h3>
             <p>Signals help understand workload health without exposing internal dashboards or service addresses.</p>
           </article>
-          <article className="signalPanel">
+          <article
+            className="signalPanel"
+            data-umami-view="Viewed observability signal panel"
+            data-umami-view-panel="operations"
+          >
             <span>Operations</span>
             <h3>Traceable changes</h3>
             <p>Commits and pull requests document what changed and why.</p>
@@ -437,7 +503,12 @@ export default function Home() {
         </p>
         <div className="securityGrid">
           {securityPractices.map((item) => (
-            <article className="securityCard" key={item}>
+            <article
+              className="securityCard"
+              key={item}
+              data-umami-view="Viewed security practice card"
+              data-umami-view-practice={item}
+            >
               <span>✓</span>
               <h3>{item}</h3>
             </article>
@@ -456,7 +527,13 @@ export default function Home() {
 
       <footer>
         <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
-        <a href="https://github.com/yesid-lopez/homepage-landing">github.com/yesid-lopez/homepage-landing</a>
+        <a
+          href="https://github.com/yesid-lopez/homepage-landing"
+          data-umami-event="Clicked footer repository link"
+          data-umami-event-location="footer"
+        >
+          github.com/yesid-lopez/homepage-landing
+        </a>
       </footer>
     </main>
   );
