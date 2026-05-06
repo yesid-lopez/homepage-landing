@@ -508,7 +508,19 @@ export default function Home() {
       </Section>
 
       <footer>
-        <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
+        <div>
+          <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
+          <p className="ownerAttribution">
+            Homelab Owner:{" "}
+            <a
+              href="https://www.yesidlopez.de/"
+              data-umami-event="Outbound: Portfolio"
+              data-umami-event-location="footer"
+            >
+              Yesid Lopez
+            </a>
+          </p>
+        </div>
         <a
           href="https://github.com/yesid-lopez/homepage-landing"
           data-umami-event="Outbound: GitHub"
