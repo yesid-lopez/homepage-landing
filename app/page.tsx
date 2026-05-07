@@ -8,7 +8,7 @@ const highlights = [
 ];
 
 const platformStats = [
-  ["Platform lab", "Private runtime for applications, workflows, and experimentation."],
+  ["Platform lab", "Runtime for applications, workflows, and experimentation."],
   ["Declarative", "Infrastructure and workloads are managed as reviewed code."],
   ["Observable", "Operational signals support maintenance and reliability."],
 ];
@@ -21,7 +21,7 @@ const architectureCards = [
     details: [
       "Compact machines provide the container runtime layer.",
       "Workloads are scheduled by Kubernetes with a maintainable topology.",
-      "Hardware identifiers and exact capacity are intentionally omitted.",
+      "Capacity planning keeps the cluster balanced for lab workloads.",
     ],
   },
   {
@@ -30,8 +30,8 @@ const architectureCards = [
     role: "Controlled access layer",
     details: [
       "Services that require external access pass through a controlled access layer.",
-      "External-access details are intentionally kept abstract.",
-      "Public hostnames and DNS details are not listed here.",
+      "Routing rules separate public entry points from internal services.",
+      "The edge layer keeps ingress, certificates, and routing manageable.",
     ],
   },
   {
@@ -41,7 +41,7 @@ const architectureCards = [
     details: [
       "Applications that need data use persistent volumes.",
       "Storage is declared and maintained with the rest of the platform.",
-      "Operational topology details stay private.",
+      "Data services are treated as first-class platform components.",
     ],
   },
 ];
@@ -60,38 +60,38 @@ const controllers = [
 const apps = [
   {
     name: "Experimentation workloads",
-    purpose: "A private runtime for testing services, workflows, and technical ideas.",
+    purpose: "A runtime for testing services, workflows, and technical ideas.",
     details: [
       "Designed like a compact platform engineering lab.",
       "Useful for testing deployment, monitoring, and reliability patterns.",
-      "Sensitive runtime configuration is kept out of the public overview.",
+      "Configuration is managed through the same GitOps workflow.",
     ],
   },
   {
     name: "Application workloads",
     purpose: "Custom applications deployed through the same GitOps platform.",
     details: [
-      "Built and released through a private delivery workflow.",
+      "Built and released through a repeatable delivery workflow.",
       "Managed with environment-specific Kubernetes manifests.",
-      "Repository internals and image tags are intentionally hidden.",
+      "Versioned images and manifests move together through review.",
     ],
   },
   {
     name: "Telemetry workflows",
-    purpose: "Private insight workflows for owned projects and operations.",
+    purpose: "Insight workflows for owned projects and operations.",
     details: [
       "Combines application signals with platform-level operational feedback.",
       "Supports reporting, debugging, and operational awareness.",
-      "Dashboard URLs and service endpoints are not published.",
+      "Dashboards turn telemetry into practical maintenance context.",
     ],
   },
   {
     name: "Automation services",
-    purpose: "Private services for delivery, maintenance, and support workflows.",
+    purpose: "Services for delivery, maintenance, and support workflows.",
     details: [
       "Includes supporting APIs and utility services.",
       "Access is limited to the required network paths.",
-      "Implementation details are intentionally abstracted.",
+      "Implementation choices stay aligned with the platform operating model.",
     ],
   },
 ];
@@ -105,11 +105,9 @@ const gitopsFlow = [
 
 const securityPractices = [
   "No plaintext secrets in Git",
-  "No internal hostnames or IP addresses published",
   "Selected services exposed through a controlled edge",
   "Configuration changes reviewed before deployment",
   "Operational signals for reliability awareness",
-  "Sensitive implementation details intentionally redacted",
 ];
 
 const validation = ["YAML linting", "Kubernetes schema checks", "Manifest build checks", "Pull request validation"];
@@ -145,7 +143,7 @@ function Section({
 
 function NeuralArchitecture() {
   return (
-    <div className="neuralVisual" aria-label="Animated private platform architecture overview">
+    <div className="neuralVisual" aria-label="Animated platform architecture overview">
       <div className="meshLine meshLineA" />
       <div className="meshLine meshLineB" />
       <div className="meshLine meshLineC" />
@@ -194,7 +192,7 @@ function NeuralArchitecture() {
         <code>
           <b>desired_state</b>: reconciled{"\n"}
           <b>secrets</b>: encrypted{"\n"}
-          <b>public_details</b>: redacted
+          <b>edge_policy</b>: controlled
         </code>
       </div>
     </div>
@@ -206,7 +204,7 @@ function ArchitectureSystemMap() {
   const platform = ["GitOps", "Secrets", "Access", "Storage", "Signals", "Data ops"];
 
   return (
-    <div className="systemMap" aria-label="Visual architecture map of the sanitized private platform">
+    <div className="systemMap" aria-label="Visual architecture map of the platform lab">
       <div className="mapGlow mapGlowOne" />
       <div className="mapGlow mapGlowTwo" />
       <div className="mapSignal mapSignalOne" />
@@ -215,10 +213,10 @@ function ArchitectureSystemMap() {
 
       <div className="mapHeader">
         <div>
-          <span>Sanitized architecture</span>
+          <span>Platform architecture</span>
           <strong>Sources → Edge / GitOps → Kubernetes → Workloads</strong>
         </div>
-        <p>No IPs, hostnames, credentials, or internal paths exposed</p>
+        <p>GitOps, access, storage, and signals working together</p>
       </div>
 
       <div className="mapCanvas">
@@ -244,7 +242,7 @@ function ArchitectureSystemMap() {
               <strong>Controlled routing</strong>
             </div>
             <div className="miniPill">Access controls</div>
-            <div className="miniPill">Public details redacted</div>
+            <div className="miniPill">Route policies</div>
           </div>
         </div>
 
@@ -294,7 +292,7 @@ function ArchitectureSystemMap() {
 
       <div className="mapLegend">
         <span><i className="legendPublic" /> Public entry</span>
-        <span><i className="legendPrivate" /> Private platform</span>
+        <span><i className="legendPrivate" /> Platform core</span>
         <span><i className="legendData" /> State and signals</span>
       </div>
     </div>
@@ -332,10 +330,11 @@ export default function Home() {
         <div className="heroGrid">
           <div className="heroCopy reveal">
             <p className="eyebrow">AI engineering · Kubernetes · GitOps</p>
-            <h1><span>Private</span> platform lab</h1>
+            <h1><span>Platform</span> lab</h1>
             <p className="lead">
               A polished, security-conscious view of my private Kubernetes platform lab — built like a compact platform for
               application workloads, experimentation, automation, operational feedback, and production-style GitOps delivery.
+              The public page keeps sensitive operational details out of scope so the story can focus on the engineering model.
             </p>
             <div className="actions">
               <a
@@ -380,11 +379,10 @@ export default function Home() {
         ))}
       </section>
 
-      <Section id="architecture" eyebrow="Architecture" title="A private platform lab with an engineering aesthetic" featured>
+      <Section id="architecture" eyebrow="Architecture" title="A Kubernetes lab with an engineering aesthetic" featured>
         <p>
-          This private lab is a small Kubernetes platform for learning, operating, and deploying real services. It keeps the
-          design visible while omitting sensitive hostnames, network addresses, hardware identifiers, credentials, and
-          exact implementation details.
+          This Kubernetes platform is built for learning, operating, and deploying real services. The design shows how
+          compute, access, storage, delivery, and feedback loops work together as a compact engineering system.
         </p>
         <ArchitectureSystemMap />
         <div className="grid three">
@@ -415,8 +413,8 @@ export default function Home() {
           ))}
         </div>
         <div className="note statusNote">
-          Repository changes become reviewed infrastructure changes. This public overview explains the workflow without
-          publishing commands, tokens, internal paths, or environment-specific values.
+          Repository changes become reviewed infrastructure changes. Pull requests, validation, and reconciliation make
+          the platform workflow traceable from intent to runtime state.
         </div>
       </Section>
 
@@ -435,20 +433,20 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="networking" eyebrow="External access" title="Controlled external access without exposing reconnaissance details">
+      <Section id="networking" eyebrow="External access" title="Controlled external access for services that need to be reached">
         <p>
-          The platform is designed with a controlled access layer for services that require external reachability. The public overview avoids listing
-          hostnames, IP ranges, provider configuration, and other details that could make enumeration easier.
+          The platform uses a controlled access layer for services that require external reachability. Routing,
+          certificates, and access policy are treated as part of the platform rather than ad-hoc service setup.
         </p>
         <div className="chips fancyChips">
           <span>Controlled routing</span>
           <span>Secure access patterns</span>
-          <span>Provider details redacted</span>
-          <span>Sanitized public details</span>
+          <span>Certificate automation</span>
+          <span>Route policies</span>
         </div>
       </Section>
 
-      <Section id="apps" eyebrow="Workloads" title="A private runtime for applications, telemetry workflows, automation, and experimentation">
+      <Section id="apps" eyebrow="Workloads" title="Applications, telemetry workflows, automation, and experimentation share one runtime">
         <div className="appList">
           {apps.map((app) => (
             <article
@@ -480,7 +478,7 @@ export default function Home() {
           >
             <span>Feedback loop</span>
             <h3>Detect issues quickly</h3>
-            <p>Signals help understand workload health without exposing internal dashboards or service addresses.</p>
+            <p>Signals help understand workload health and guide operational decisions.</p>
           </article>
           <article
             className="signalPanel"
@@ -492,10 +490,10 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="security" eyebrow="Security" title="Designed to look good publicly without leaking private internals">
+      <Section id="security" eyebrow="Security" title="Public presentation with careful operational boundaries">
         <p>
-          This page focuses on the engineering story and visual architecture while intentionally avoiding details that
-          could make the environment easier to enumerate or target.
+          The public version keeps credentials, internal network details, hostnames, and environment-specific values out of
+          scope while still showing the engineering story and platform operating model.
         </p>
         <div className="securityGrid">
           {securityPractices.map((item) => (
@@ -521,7 +519,7 @@ export default function Home() {
 
       <footer>
         <div>
-          <p>Built with Next.js as a sanitized public overview of a private GitOps platform lab.</p>
+          <p>Built with Next.js as a public overview of a GitOps platform lab.</p>
           <p className="ownerAttribution">
             Homelab Owner:{" "}
             <a
