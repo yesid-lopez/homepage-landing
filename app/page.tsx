@@ -190,7 +190,7 @@ function NeuralArchitecture() {
 }
 
 function ArchitectureSystemMap() {
-  const workloads = ["Experiments", "Apps", "Telemetry", "Automation"];
+  const workloads = ["Experiments", "Apps", "Metrics", "Automation"];
   const platform = ["GitOps", "Secrets", "Access", "Storage", "Signals", "Data ops"];
 
   return (
