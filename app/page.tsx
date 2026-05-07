@@ -121,9 +121,21 @@ const navItems = [
   ["Security", "#security"],
 ];
 
-function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
+function Section({
+  id,
+  eyebrow,
+  title,
+  featured = false,
+  children,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  featured?: boolean;
+  children: React.ReactNode;
+}) {
   return (
-    <section id={id} className="section reveal">
+    <section id={id} className={`section reveal${featured ? " featuredSection" : ""}`}>
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       {children}
@@ -368,7 +380,7 @@ export default function Home() {
         ))}
       </section>
 
-      <Section id="architecture" eyebrow="Architecture" title="A private platform lab with an engineering aesthetic">
+      <Section id="architecture" eyebrow="Architecture" title="A private platform lab with an engineering aesthetic" featured>
         <p>
           This private lab is a small Kubernetes platform for learning, operating, and deploying real services. It keeps the
           design visible while omitting sensitive hostnames, network addresses, hardware identifiers, credentials, and
