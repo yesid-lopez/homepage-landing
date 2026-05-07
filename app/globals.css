@@ -541,23 +541,23 @@ footer p {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 26px 0;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
 }
 
-.chips span {
+.chips li {
   max-width: 100%;
   overflow-wrap: anywhere;
-  padding: 11px 15px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.055);
-  color: #e8ecff;
-  font-weight: 850;
-}
-
-.fancyChips span {
-  background: linear-gradient(135deg, rgba(125, 211, 252, 0.11), rgba(192, 132, 252, 0.1));
+  padding: 8px 11px;
+  border: 1px solid rgba(180, 190, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
 }
 
 .appList {
@@ -1172,9 +1172,9 @@ footer a {
     gap: 10px;
   }
 
-  .chips span {
+  .chips li {
     width: 100%;
-    border-radius: 16px;
+    border-radius: 12px;
   }
 
   .bars {
@@ -1439,13 +1439,14 @@ footer a {
 }
 
 .miniPill {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: 1px solid rgba(180, 190, 255, 0.14);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #dfe8ff;
-  font-size: 0.86rem;
-  font-weight: 850;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
   text-align: center;
 }
 
