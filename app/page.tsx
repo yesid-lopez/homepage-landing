@@ -438,12 +438,12 @@ export default function Home() {
           The platform uses a controlled access layer for services that require external reachability. Routing,
           certificates, and access policy are treated as part of the platform rather than ad-hoc service setup.
         </p>
-        <div className="chips fancyChips">
-          <span>Controlled routing</span>
-          <span>Secure access patterns</span>
-          <span>Certificate automation</span>
-          <span>Route policies</span>
-        </div>
+        <ul className="chips tagChips" aria-label="External access capabilities">
+          <li>Controlled routing</li>
+          <li>Secure access patterns</li>
+          <li>Certificate automation</li>
+          <li>Route policies</li>
+        </ul>
       </Section>
 
       <Section id="apps" eyebrow="Workloads" title="Applications, telemetry workflows, automation, and experimentation share one runtime">
@@ -509,9 +509,9 @@ export default function Home() {
       </Section>
 
       <Section id="validation" eyebrow="Quality gates" title="Validation keeps changes consistent before deployment">
-        <div className="chips fancyChips">
-          {validation.map((item) => <span key={item}>{item}</span>)}
-        </div>
+        <ul className="chips tagChips" aria-label="Validation checks">
+          {validation.map((item) => <li key={item}>{item}</li>)}
+        </ul>
         <p>
           Automated checks reduce the risk of broken manifests reaching the platform and keep the GitOps workflow tidy.
         </p>
