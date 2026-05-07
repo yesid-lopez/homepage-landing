@@ -1565,8 +1565,10 @@ footer a {
 
 .workloadPod span {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  hyphens: auto;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 .workloadPod i {
