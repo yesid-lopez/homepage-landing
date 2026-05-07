@@ -3,7 +3,7 @@ import { UmamiSectionTracker } from "./umami-section-tracker";
 const highlights = [
   { label: "Platform", value: "Kubernetes" },
   { label: "Delivery", value: "GitOps" },
-  { label: "Security", value: "Encrypted secrets" },
+  { label: "Security", value: "Sealed secrets" },
   { label: "Signals", value: "Operational feedback" },
 ];
 
@@ -190,7 +190,7 @@ function NeuralArchitecture() {
 }
 
 function ArchitectureSystemMap() {
-  const workloads = ["Experiments", "Apps", "Telemetry", "Automation"];
+  const workloads = ["Experiments", "Apps", "Metrics", "Automation"];
   const platform = ["GitOps", "Secrets", "Access", "Storage", "Signals", "Data ops"];
 
   return (
@@ -204,20 +204,20 @@ function ArchitectureSystemMap() {
       <div className="mapHeader">
         <div>
           <span>Sanitized architecture</span>
-          <strong>Traffic → Edge → Kubernetes → Workloads</strong>
+          <strong>Sources → Edge / GitOps → Kubernetes → Workloads</strong>
         </div>
         <p>No IPs, hostnames, credentials, or internal paths exposed</p>
       </div>
 
       <div className="mapCanvas">
         <div className="mapColumn outsideZone">
-          <div className="zoneLabel">External</div>
+          <div className="zoneLabel">Sources</div>
           <div className="mapNode externalNode">
-            <span>Internet</span>
+            <span>Internet traffic</span>
             <strong>Requests</strong>
           </div>
           <div className="mapNode repoNode">
-            <span>GitHub</span>
+            <span>GitHub source</span>
             <strong>Desired state</strong>
           </div>
         </div>
