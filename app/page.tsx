@@ -1,3 +1,4 @@
+import { PlatformStatusCard } from "./platform-status";
 import { UmamiSectionTracker } from "./umami-section-tracker";
 
 const highlights = [
@@ -465,6 +466,7 @@ export default function Home() {
       </Section>
 
       <Section id="observability" eyebrow="Observability" title="Operational signals support a platform-style workflow">
+        <PlatformStatusCard />
         <div className="dashboardGrid">
           <article
             className="signalPanel large"
