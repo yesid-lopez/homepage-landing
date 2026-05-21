@@ -1,3 +1,4 @@
+import { PlatformStatusCard, PlatformStatusPill, PlatformStatusTerminal } from "./platform-status";
 import { UmamiSectionTracker } from "./umami-section-tracker";
 
 const highlights = [
@@ -187,14 +188,7 @@ function NeuralArchitecture() {
         <strong>Observability</strong>
       </div>
 
-      <div className="terminalCard">
-        <div className="terminalHeader"><span /> platform status</div>
-        <code>
-          <b>desired_state</b>: reconciled{"\n"}
-          <b>secrets</b>: encrypted{"\n"}
-          <b>edge_policy</b>: controlled
-        </code>
-      </div>
+      <PlatformStatusTerminal />
     </div>
   );
 }
@@ -330,6 +324,7 @@ export default function Home() {
         <div className="heroGrid">
           <div className="heroCopy reveal">
             <p className="eyebrow">AI engineering · Kubernetes · GitOps</p>
+            <PlatformStatusPill />
             <h1><span>Platform</span> lab</h1>
             <p className="lead">
               A polished, security-conscious view of my private Kubernetes platform lab — built like a compact platform for
@@ -465,6 +460,7 @@ export default function Home() {
       </Section>
 
       <Section id="observability" eyebrow="Observability" title="Operational signals support a platform-style workflow">
+        <PlatformStatusCard />
         <div className="dashboardGrid">
           <article
             className="signalPanel large"

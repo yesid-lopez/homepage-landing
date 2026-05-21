@@ -13,6 +13,7 @@
   --pink: #f0abfc;
   --success: #8bffcf;
   --warning: #facc15;
+  --danger: #ff6b8a;
   --shadow: 0 26px 90px rgba(0, 0, 0, 0.44);
   --radius-lg: 32px;
   --radius-md: 22px;
@@ -285,6 +286,7 @@ h3 {
 .note,
 .introBand article,
 .signalPanel,
+.platformStatusCard,
 .securityCard,
 .layeredMap,
 .neuralVisual {
@@ -356,7 +358,8 @@ footer p {
 .card::before,
 .appCard::before,
 .securityCard::before,
-.signalPanel::before {
+.signalPanel::before,
+.platformStatusCard::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -369,7 +372,8 @@ footer p {
 .card:hover,
 .appCard:hover,
 .securityCard:hover,
-.signalPanel:hover {
+.signalPanel:hover,
+.platformStatusCard:hover {
   border-color: rgba(125, 211, 252, 0.34);
   transform: translateY(-4px);
 }
@@ -377,7 +381,8 @@ footer p {
 .card:hover::before,
 .appCard:hover::before,
 .securityCard:hover::before,
-.signalPanel:hover::before {
+.signalPanel:hover::before,
+.platformStatusCard:hover::before {
   opacity: 1;
 }
 
@@ -594,6 +599,128 @@ footer p {
   font-size: 3.6rem;
   font-weight: 950;
   line-height: 1;
+}
+
+.platformStatusCard {
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.platformStatusCard::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 255, 207, 0.16), transparent 68%);
+  pointer-events: none;
+}
+
+.platformStatusHeader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.platformStatusHeader span {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.platformStatusHeader h3 {
+  margin: 8px 0 0;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 1px solid rgba(180, 190, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.statusBadge i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 16px currentColor;
+  animation: statusBlink 2.2s ease-in-out infinite;
+}
+
+.statusBadge.isOperational {
+  color: var(--success);
+}
+
+.statusBadge.isDegraded {
+  color: var(--warning);
+}
+
+.statusBadge.isIncident {
+  color: var(--danger);
+}
+
+.statusBadge.isUnknown {
+  color: var(--muted);
+}
+
+.statusMetricGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.statusMetric {
+  min-height: 92px;
+  padding: 15px;
+  border: 1px solid rgba(180, 190, 255, 0.13);
+  border-radius: 20px;
+  background: rgba(4, 6, 18, 0.34);
+}
+
+.statusMetric span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.statusMetric strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--text);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.statusFootnote {
+  position: relative;
+  z-index: 1;
+  margin: 18px 0 0;
+  color: var(--muted);
 }
 
 .dashboardGrid {
@@ -917,12 +1044,78 @@ footer a {
   margin-bottom: 10px;
 }
 
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 6px 12px;
+  border: 1px solid rgba(180, 190, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.statusPill i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 12px var(--success);
+  flex: 0 0 auto;
+}
+
+.statusPill > span:last-child {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.statusPill.isDegraded i {
+  background: var(--warning);
+  box-shadow: 0 0 12px var(--warning);
+}
+
+.statusPill.isIncident i {
+  background: var(--danger);
+  box-shadow: 0 0 12px var(--danger);
+}
+
+.statusPill.isUnknown i {
+  background: var(--muted);
+  box-shadow: 0 0 12px var(--muted);
+}
+
+@media (min-width: 981px) {
+  .statusPill {
+    display: none;
+  }
+}
+
 .terminalHeader span {
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: var(--success);
   box-shadow: 0 0 16px var(--success);
+}
+
+.terminalHeader.isDegraded span {
+  background: var(--warning);
+  box-shadow: 0 0 16px var(--warning);
+}
+
+.terminalHeader.isIncident span {
+  background: var(--danger);
+  box-shadow: 0 0 16px var(--danger);
+}
+
+.terminalHeader.isUnknown span {
+  background: var(--muted);
+  box-shadow: 0 0 16px var(--muted);
 }
 
 .terminalCard code {
@@ -1002,6 +1195,10 @@ footer a {
   .dashboardGrid,
   .securityGrid {
     grid-template-columns: 1fr;
+  }
+
+  .statusMetricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hero {
@@ -1106,6 +1303,7 @@ footer a {
   .note,
   .introBand article,
   .signalPanel,
+  .platformStatusCard,
   .securityCard,
   .layeredMap {
     border-radius: 24px;
@@ -1116,9 +1314,23 @@ footer a {
   .appCard,
   .introBand article,
   .signalPanel,
+  .platformStatusCard,
   .securityCard,
   .layeredMap {
     padding: 18px;
+  }
+
+  .platformStatusHeader,
+  .statusMetricGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .platformStatusHeader {
+    display: grid;
+  }
+
+  .statusBadge {
+    width: fit-content;
   }
 
   .neuralVisual {
