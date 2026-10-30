@@ -7,6 +7,20 @@ type BackupSummary = {
   lastSuccessAt?: string | null;
 };
 
+type ReadyCount = { ready?: number; total?: number };
+
+type StatusChecks = {
+  flux?: ReadyCount;
+  backups?: {
+    okToday?: number;
+    total?: number;
+    overdue?: number;
+    oldestOverdueSuccessAt?: string | null;
+  };
+  nodes?: ReadyCount;
+  workloads?: { unavailable?: number; total?: number };
+};
+
 type PlatformStatus = {
   status?: "operational" | "degraded" | "incident" | "unknown" | string;
   nodes?: number | null;
@@ -15,6 +29,7 @@ type PlatformStatus = {
   gitops?: string;
   backups?: BackupSummary;
   alerts?: number | null;
+  checks?: StatusChecks;
   updatedAt?: string;
 };
 
@@ -33,12 +48,10 @@ function notify() {
   listeners.forEach((l) => l());
 }
 
-function ensureFetch() {
-  if (fetchStarted) return;
-  const endpoint = process.env.NEXT_PUBLIC_STATUS_API_URL;
-  if (!endpoint) return;
-  fetchStarted = true;
+// The API caches for 30s, so polling faster would only return the same payload.
+const POLL_INTERVAL_MS = 30_000;
 
+function loadStatus(endpoint: string) {
   fetch(endpoint, { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error(`Status API returned ${response.status}`);
@@ -49,9 +62,23 @@ function ensureFetch() {
       notify();
     })
     .catch(() => {
+      // Keep the last live payload on a transient failure; its updatedAt shows its age.
+      if (snapshot.isLive) return;
       snapshot = { status: fallbackStatus, isLive: false };
       notify();
     });
+}
+
+function ensureFetch() {
+  if (fetchStarted) return;
+  const endpoint = process.env.NEXT_PUBLIC_STATUS_API_URL;
+  if (!endpoint) return;
+  fetchStarted = true;
+
+  loadStatus(endpoint);
+  window.setInterval(() => {
+    if (document.visibilityState === "visible") loadStatus(endpoint);
+  }, POLL_INTERVAL_MS);
 }
 
 function usePlatformStatus(): Snapshot {
@@ -192,33 +219,104 @@ export function PlatformStatusPill() {
   );
 }
 
+type CheckTile = { label: string; value: string; ok: boolean | null };
+
+function plural(count: number, noun: string) {
+  return `${count} ${noun}${count === 1 ? "" : "s"}`;
+}
+
+function hasCount(value: ReadyCount | undefined): value is { ready: number; total: number } {
+  return typeof value?.ready === "number" && typeof value?.total === "number";
+}
+
+// Older API payloads have no `checks`; fall back to the legacy summary fields.
+function buildChecks(status: PlatformStatus) {
+  const { checks } = status;
+  const tiles: CheckTile[] = [];
+  const issues: string[] = [];
+
+  if (hasCount(checks?.flux)) {
+    const notReady = checks.flux.total - checks.flux.ready;
+    tiles.push({ label: "Flux", value: notReady === 0 ? "✓" : `${checks.flux.ready}/${checks.flux.total}`, ok: notReady === 0 });
+    if (notReady > 0) issues.push(`${plural(notReady, "Flux resource")} not ready`);
+  } else {
+    const ok = status.gitops === "healthy" ? true : status.gitops === "degraded" ? false : null;
+    tiles.push({ label: "Flux", value: ok === null ? "—" : ok ? "✓" : "!", ok });
+    if (ok === false) issues.push("Flux is not fully synced");
+  }
+
+  const backups = checks?.backups;
+  if (typeof backups?.okToday === "number" && typeof backups.total === "number") {
+    const overdue = backups.overdue ?? backups.total - backups.okToday;
+    tiles.push({ label: "Backups today", value: `${backups.okToday}/${backups.total}`, ok: overdue === 0 });
+    if (overdue > 0) {
+      const lastSuccess = formatRelative(backups.oldestOverdueSuccessAt);
+      issues.push(`${plural(overdue, "backup")} overdue · last success ${lastSuccess ?? "unknown"}`);
+    }
+  } else {
+    const state = status.backups?.status;
+    const ok = state === "ok" ? true : state === "stale" ? false : null;
+    tiles.push({ label: "Backups", value: ok === null ? "—" : ok ? "✓" : "!", ok });
+    if (ok === false) issues.push("Backups are overdue");
+  }
+
+  const nodes = hasCount(checks?.nodes)
+    ? checks.nodes
+    : typeof status.nodes === "number" && typeof status.nodeCount === "number"
+      ? { ready: status.nodes, total: status.nodeCount }
+      : null;
+  if (nodes) {
+    const down = nodes.total - nodes.ready;
+    tiles.push({ label: "Nodes", value: `${nodes.ready}/${nodes.total}`, ok: down === 0 });
+    if (down > 0) issues.push(`${plural(down, "node")} down`);
+  } else {
+    tiles.push({ label: "Nodes", value: "—", ok: null });
+  }
+
+  const unavailable = checks?.workloads?.unavailable ?? 0;
+  if (unavailable > 0) issues.push(`${plural(unavailable, "workload")} unavailable`);
+
+  return { tiles, issues };
+}
+
+function headline(statusValue: string, isLive: boolean, issueCount: number) {
+  if (!isLive) return "Status pending";
+  if (issueCount > 0) return `${issueCount} ${issueCount === 1 ? "thing needs" : "things need"} attention`;
+  if (statusValue === "operational") return "All good";
+  return formatStatusLabel(statusValue);
+}
+
 export function PlatformStatusTerminal() {
   const { status, isLive } = usePlatformStatus();
   const statusValue = (status.status || "unknown").toLowerCase();
   const variantClass = statusVariant(statusValue);
-  const nodes = nodesDisplay(status, isLive);
-  const workloads = isLive ? numberOrDash(status.workloads) : "—";
-  const gitops = isLive ? status.gitops || "—" : "pending";
-  const backupState = isLive ? status.backups?.status : null;
-  const backupShort = formatRelative(status.backups?.lastSuccessAt)?.replace(/ ago$/, "") ?? null;
-  const updated = formatRelative(status.updatedAt);
-  const alerts = isLive && typeof status.alerts === "number" ? `${status.alerts} alerts` : null;
-
-  const line1 = joinSegments([isLive ? statusValue : "pending", alerts]);
-  const line2 = joinSegments([nodes, `workloads: ${workloads}`]);
-  const backupSegment = backupState ? [backupState, backupShort].filter(Boolean).join(" ") : null;
-  const line3 = joinSegments([gitops, backupSegment && `backups: ${backupSegment}`, isLive ? updated : null]);
+  const { tiles, issues } = useMemo(() => buildChecks(status), [status]);
+  const updated = isLive ? formatRelative(status.updatedAt) : null;
 
   return (
-    <div className="terminalCard">
+    <div className="terminalCard statusChecks" aria-label="Live platform status" aria-live="polite">
       <div className={`terminalHeader ${variantClass}`}>
-        <span /> status
+        <span /> {joinSegments([isLive ? statusValue : "pending", updated && `updated ${updated}`])}
       </div>
-      <code>
-        <b>status</b>: {line1}{"\n"}
-        <b>nodes</b>: {line2}{"\n"}
-        <b>gitops</b>: {line3}
-      </code>
+      <strong className="statusHeadline">{headline(statusValue, isLive, issues.length)}</strong>
+      <div className="statusTiles">
+        {tiles.map((tile) => (
+          <div
+            className={`statusTile ${tile.ok === true ? "isOk" : tile.ok === false ? "isBad" : ""}`}
+            key={tile.label}
+          >
+            <strong>{isLive ? tile.value : "—"}</strong>
+            <span>{tile.label}</span>
+          </div>
+        ))}
+      </div>
+      {isLive && issues.length > 0 && (
+        <ul className="statusIssues">
+          {issues.map((issue) => (
+            <li key={issue}>{issue}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
